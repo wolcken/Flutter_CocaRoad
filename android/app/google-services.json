@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1030674304120",
+    "project_id": "dbcocaroad",
+    "storage_bucket": "dbcocaroad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030674304120:android:4f8674b66a3c30e0fe318d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_cocaroad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030674304120-s73smevkhv28nfr0j7gkj5nfg0f1h5gh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkOr9sVZbXDCjZUcjvS8P-qMcPPz4uLhs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030674304120-lcrsmkp7dnfdcptf7qerfr095iqd993a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
