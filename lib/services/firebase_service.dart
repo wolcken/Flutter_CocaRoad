@@ -34,3 +34,18 @@ Future<List> getUsers() async {
 
   return user;
 }
+
+Future<List> getPrices(String dept) async {
+  List price = [];
+  CollectionReference collectionReferencePrices =
+      db.collection('departments').doc(dept).collection('galpones');
+
+  QuerySnapshot queryPrices = await collectionReferencePrices.get();
+
+  queryPrices.docs.forEach((element) {
+    price.add(element.data());
+    //print(element.data());
+  });
+
+  return price;
+}

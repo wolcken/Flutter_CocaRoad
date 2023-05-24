@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_cocaroad/pages/addRegions.dart';
 import 'package:flutter_application_cocaroad/pages/home.dart';
 import 'package:flutter_application_cocaroad/pages/login.dart';
+import 'package:flutter_application_cocaroad/pages/prices.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/':(context) => const Home(),
         '/login':(context) => const Login(),
         '/addregions':(context) => const AddRegions(),
+        '/prices':(context) => const Prices(),
       },
     );
   }
