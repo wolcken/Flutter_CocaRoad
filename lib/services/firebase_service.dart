@@ -38,12 +38,12 @@ Future<List> getUsers() async {
   return user;
 }
 
-
 //Obtener todos los precios
 Future<List> getPrices(String dept) async {
   List price = [];
 
-  QuerySnapshot queryPrices = await db.collection('departments').doc(dept).collection('galpones').get();
+  QuerySnapshot queryPrices =
+      await db.collection('departments').doc(dept).collection('galpones').get();
 
   for (var doc in queryPrices.docs) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -67,19 +67,51 @@ Future<List> getPrices(String dept) async {
   return price;
 }
 
+//obtener los precios de un galpon
 Future getPriceId(String? depart, String? galpon) async {
-
-  DocumentSnapshot queryPricesId = await db.collection('departments').doc(depart).collection('galpones').doc(galpon).get();
+  DocumentSnapshot queryPricesId = await db
+      .collection('departments')
+      .doc(depart)
+      .collection('galpones')
+      .doc(galpon)
+      .get();
 
   var priceForEdit = queryPricesId.data();
 
-  print(priceForEdit);
-
+  //print(priceForEdit);
 
   return priceForEdit;
 }
 
-//Editar los precios
-Future<void> updatePrices(String uid, String newName) async {
-  await db.collection('departments').doc(uid).set({'name': newName});
+//Actualizar los precios de un galpon
+Future<void> updatePricesId(
+    String depart,
+    String uid,
+    num newElegidakl,
+    num newHojeadaEsp,
+    num newHojeada,
+    num newMedianaEsp,
+    num newMediana,
+    num newComun,
+    num newChimi,
+    num newChoqueta,
+    String name,
+    bool view) async {
+  await db
+      .collection('departments')
+      .doc(depart)
+      .collection('galpones')
+      .doc(uid)
+      .set({
+    'elegida_kl': newElegidakl,
+    'hojeada_esp': newHojeadaEsp,
+    'hojeada': newHojeada,
+    'mediana_esp': newMedianaEsp,
+    'mediana': newMediana,
+    'comun': newComun,
+    'chimi': newChimi,
+    'choqueta': newChoqueta,
+    'name': name,
+    'view': view
+  });
 }

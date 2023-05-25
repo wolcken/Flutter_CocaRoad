@@ -48,48 +48,6 @@ class _AddRegionsState extends State<AddRegions> {
       //     ],
       //   ),
       // ),
-
-      // body: FutureBuilder(
-      //   future: getPriceId(),
-      //   builder: ((context, snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView.builder(
-      //         padding: const EdgeInsets.symmetric(
-      //           horizontal: 20.0,
-      //           vertical: 20.0,
-      //         ),
-      //         itemCount: 1,
-      //         itemBuilder: (context, index) {
-      //           return Column(
-      //             children: <Widget>[
-      //               Text(snapshot.data?['name']),
-      //               Row(
-      //                 children: <Widget>[
-      //                   const Text('Elegida Kl'),
-      //                   Text((snapshot.data?['elegida_kl']).toString()),
-      //                 ],
-      //               ),
-      //               Row(
-      //                 children: <Widget>[
-      //                   const Text('Hojeada Especial'),
-      //                   Text((snapshot.data?['hojeada_esp']).toString()),
-      //                 ],
-      //               ),
-      //               const SizedBox(
-      //                 height: 20,
-      //               ),
-      //             ],
-      //           );
-      //         },
-      //       );
-      //     } else {
-      //       return const Center(
-      //         child: CircularProgressIndicator(),
-      //         //child: Text('cargando...'),
-      //       );
-      //     }
-      //   }),
-      // ),
     );
   }
 }

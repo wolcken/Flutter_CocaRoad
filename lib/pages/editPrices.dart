@@ -17,6 +17,8 @@ class _ChooseEditState extends State<EditPrices> {
   TextEditingController comunController = TextEditingController(text: '');
   TextEditingController chimiController = TextEditingController(text: '');
   TextEditingController choquetaController = TextEditingController(text: '');
+  bool isView = true;
+  String Name = '';
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,8 @@ class _ChooseEditState extends State<EditPrices> {
               comunController.text = (snapshot.data?['comun']).toString();
               chimiController.text = (snapshot.data?['chimi']).toString();
               choquetaController.text = (snapshot.data?['choqueta']).toString();
+              isView = snapshot.data?['view'];
+              Name = snapshot.data?['name'];
               return ListView.builder(
                   itemCount: 1,
                   itemBuilder: (context, index) {
@@ -183,6 +187,19 @@ class _ChooseEditState extends State<EditPrices> {
                             ),
                           ),
                         ),
+                        Container(
+                          padding:
+                              const EdgeInsets.only(left: 8.0, right: 100.0),
+                          child: SwitchListTile(
+                            title: const Text('Previsualizar'),
+                            value: isView,
+                            onChanged: (value) {
+                              setState(() {
+                                isView = value;
+                              });
+                            },
+                          ),
+                        ),
                       ],
                     );
                   });
@@ -195,11 +212,36 @@ class _ChooseEditState extends State<EditPrices> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
+        onPressed: () async {
+          num auxElegida = int.parse(elegidaController.text);
+          num auxHojeadaEsp = int.parse(hojeadaespController.text);
+          num auxHojeada = int.parse(hojeadaController.text);
+          num auxMedianaEsp = int.parse(medianaespController.text);
+          num auxMediana = int.parse(medianaController.text);
+          num auxComun = int.parse(comunController.text);
+          num auxChimi = int.parse(chimiController.text);
+          num auxChoqueta = int.parse(choquetaController.text);
+          //String auxName = (parametros['galpon']).charAt[0];
+          await updatePricesId(
+              parametros['department'],
+              parametros['galpon'],
+              auxElegida,
+              auxHojeadaEsp,
+              auxHojeada,
+              auxMedianaEsp,
+              auxMediana,
+              auxComun,
+              auxChimi,
+              auxChoqueta,
+              Name,
+              isView);
+          // ignore: use_build_context_synchronously
+          Navigator.pop(context);
+        },
+        tooltip: 'Edit',
         backgroundColor: const Color.fromARGB(255, 17, 59, 59),
         child: const Icon(
-          Icons.add,
+          Icons.save,
           color: Colors.white,
         ),
       ),

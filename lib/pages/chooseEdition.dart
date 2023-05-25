@@ -8,27 +8,25 @@ class ChooseEdition extends StatefulWidget {
 }
 
 class _EditPricesState extends State<ChooseEdition> {
-  String? depart;
-  String? galpon;
+  String depart = '';
+  String galpon = '';
 
   List aux = [];
 
-  //datos del comumento de prices;
-  TextEditingController elegidaController = TextEditingController(text: '');
-
   void _send() {
-    Navigator.pushNamed(context, '/editprices',
-        arguments: <String, String>{'department': depart.toString(), 'galpon': galpon.toString()});
+    Navigator.pushNamed(context, '/editprices', arguments: <String, String>{
+      'department': depart.toString(),
+      'galpon': galpon.toString()
+    });
     setState(() {
-      depart = null;
-      galpon = null;
+      depart = '';
     });
   }
 
   void _cancel() {
     setState(() {
-      depart = null;
-      galpon = null;
+      depart = '';
+      galpon = '';
     });
   }
 
@@ -39,7 +37,14 @@ class _EditPricesState extends State<ChooseEdition> {
 
   @override
   Widget build(BuildContext context) {
-    List listGalpones = ['arapata', 'coripata'];
+    List listDepartments = ['adepcoca', 'sacaba'];
+    List listGalponesAdepcoca = [
+      'arapata',
+      'coripata',
+      'coroico',
+      'milluhuaya'
+    ];
+    List listGalponesSacaba = ['sacaba'];
 
     return Scaffold(
       appBar: AppBar(
@@ -69,185 +74,105 @@ class _EditPricesState extends State<ChooseEdition> {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
+            Container(
+              padding: const EdgeInsets.all(24.0),
+              child: Center(
+                child: DropdownButtonFormField(
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 26, 92, 92),
+                    fontSize: 16,
+                  ),
+                  icon: Image.asset('images/coca_leaves.png'),
+                  dropdownColor: const Color.fromARGB(255, 255, 255, 255),
+                  hint: const Text(
+                    'Departamental',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 17, 59, 59),
+                    ),
+                  ),
+                  items: listDepartments.map((dep) {
+                    return DropdownMenuItem(value: dep, child: Text(dep));
+                  }).toList(),
+                  onChanged: (value) {
                     setState(() {
-                      depart = 'adepcoca';
+                      depart = value.toString();
                     });
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 26, 92, 92),
-                    elevation: 20,
-                    shadowColor: Colors.blueGrey[600],
-                  ),
-                  child: const Text(
-                    'Adepcoca',
-                    style: TextStyle(fontSize: 15, color: Colors.white),
-                  ),
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        depart = 'sacaba';
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 26, 92, 92),
-                        elevation: 20,
-                        shadowColor: Colors.blueGrey[600]),
-                    child: const Text(
-                      'Sacaba',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    )),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        depart = 'minoritas';
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 26, 92, 92),
-                        elevation: 20,
-                        shadowColor: Colors.blueGrey[600]),
-                    child: const Text(
-                      'Minoristas',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
-                    )),
-              ],
-            ),
-            if (depart != null) ...[
-              Container(
-                padding: const EdgeInsets.all(24.0),
-                child: Center(
-                  child: DropdownButtonFormField(
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 26, 92, 92),
-                      fontSize: 16,
-                    ),
-                    icon: Image.asset('images/coca_leaves.png'),
-                    dropdownColor: const Color.fromARGB(255, 255, 255, 255),
-                    hint: const Text(
-                      'Elige un Galpon',
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 17, 59, 59),
-                      ),
-                    ),
-                    items: listGalpones.map((gal) {
-                      return DropdownMenuItem(value: gal, child: Text(gal));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        galpon = value.toString();
-                      });
-                    },
-                  ),
                 ),
               ),
+            ),
+            if (depart != '') ...[
+              if (depart == 'adepcoca') ...[
+                Container(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Center(
+                    child: DropdownButtonFormField(
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 26, 92, 92),
+                        fontSize: 16,
+                      ),
+                      icon: Image.asset('images/coca_leaves.png'),
+                      dropdownColor: const Color.fromARGB(255, 255, 255, 255),
+                      hint: const Text(
+                        'Elige un Galpon',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 17, 59, 59),
+                        ),
+                      ),
+                      items: listGalponesAdepcoca.map((gal) {
+                        return DropdownMenuItem(value: gal, child: Text(gal));
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          galpon = value.toString();
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ] else ...[
+                if (depart == 'sacaba') ...[
+                  Container(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Center(
+                      child: DropdownButtonFormField(
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 26, 92, 92),
+                          fontSize: 16,
+                        ),
+                        icon: Image.asset('images/coca_leaves.png'),
+                        dropdownColor: const Color.fromARGB(255, 255, 255, 255),
+                        hint: const Text(
+                          'Elige un Galpon',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 17, 59, 59),
+                          ),
+                        ),
+                        items: listGalponesSacaba.map((gal) {
+                          return DropdownMenuItem(value: gal, child: Text(gal));
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            galpon = value.toString();
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ] else
+                  ...[],
+              ],
             ] else
               ...[],
-            // if (galpon != null) ...[
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Elegida Kl",
-            //         labelText: "Elegida Kl",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Hojeada Especial",
-            //         labelText: "Hojeada Especial",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Hojeada",
-            //         labelText: "Hojeada",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Mediana Especial",
-            //         labelText: "Mediana Especial",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Mediana",
-            //         labelText: "Mediana",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Común",
-            //         labelText: "Común",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Chimi",
-            //         labelText: "Chimi",
-            //       ),
-            //     ),
-            //   ),
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-            //     child: const TextField(
-            //       keyboardType: TextInputType.number,
-            //       decoration: InputDecoration(
-            //         border: OutlineInputBorder(),
-            //         hintText: "Choqueta",
-            //         labelText: "Choqueta",
-            //       ),
-            //     ),
-            //   ),
-            // ] else
-            //   ...[],
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _send,
-        tooltip: 'Increment',
+        tooltip: 'Search',
         backgroundColor: const Color.fromARGB(255, 17, 59, 59),
         child: const Icon(
-          Icons.add,
+          Icons.edit,
           color: Colors.white,
         ),
       ),
