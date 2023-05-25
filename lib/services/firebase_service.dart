@@ -5,18 +5,21 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 Future<List> getRegions() async {
   List region = [];
 
-  CollectionReference collectionReferenceRegions = db.collection('regions');
+  QuerySnapshot queryRegions = await db.collection('regions').get();
 
-  QuerySnapshot queryRegions = await collectionReferenceRegions.get();
-
-  queryRegions.docs.forEach((element) {
-    region.add(element.data());
-  });
+  for (var doc in queryRegions.docs) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final regions = {
+      'name': data['name'],
+      'uid': doc.id,
+    };
+    region.add(regions);
+  }
   return region;
 }
 
-Future<void> addRegions(String name) async {
-  await db.collection('regions').add({'name': name});
+Future<void> addRegions(String name, num comun) async {
+  await db.collection('regions').add({'name': name, 'comun': comun});
 }
 
 Future<List> getUsers() async {
@@ -35,17 +38,48 @@ Future<List> getUsers() async {
   return user;
 }
 
+
+//Obtener todos los precios
 Future<List> getPrices(String dept) async {
   List price = [];
-  CollectionReference collectionReferencePrices =
-      db.collection('departments').doc(dept).collection('galpones');
 
-  QuerySnapshot queryPrices = await collectionReferencePrices.get();
+  QuerySnapshot queryPrices = await db.collection('departments').doc(dept).collection('galpones').get();
 
-  queryPrices.docs.forEach((element) {
-    price.add(element.data());
-    //print(element.data());
-  });
+  for (var doc in queryPrices.docs) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    final prices = {
+      'uid': doc.id,
+      'name': data['name'],
+      'elegida_kl': data['elegida_kl'],
+      'hojeada_esp': data['hojeada_esp'],
+      'hojeada': data['hojeada'],
+      'mediana_esp': data['mediana_esp'],
+      'mediana': data['mediana'],
+      'comun': data['comun'],
+      'chimi': data['chimi'],
+      'choqueta': data['choqueta'],
+      'view': data['view'],
+    };
+    price.add(prices);
+    //print(doc.data());
+  }
 
   return price;
+}
+
+Future getPriceId(String? depart, String? galpon) async {
+
+  DocumentSnapshot queryPricesId = await db.collection('departments').doc(depart).collection('galpones').doc(galpon).get();
+
+  var priceForEdit = queryPricesId.data();
+
+  print(priceForEdit);
+
+
+  return priceForEdit;
+}
+
+//Editar los precios
+Future<void> updatePrices(String uid, String newName) async {
+  await db.collection('departments').doc(uid).set({'name': newName});
 }

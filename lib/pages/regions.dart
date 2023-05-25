@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_cocaroad/pages/sectors.dart';
+//import 'package:flutter_application_cocaroad/pages/sectors.dart';
 import 'package:flutter_application_cocaroad/services/firebase_service.dart';
 
 class Regions extends StatefulWidget {
@@ -49,10 +49,11 @@ class _RegionsState extends State<Regions> {
                   children: <Widget>[
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                                builder: (context) => const Sectors()));
+                        // Navigator.push(
+                        //     context,
+                        //     CupertinoPageRoute(
+                        //         builder: (context) => const Sectors()));
+                        print(snapshot.data?[index]['uid']);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue[400],
